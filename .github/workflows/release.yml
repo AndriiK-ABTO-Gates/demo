@@ -43,16 +43,11 @@ jobs:
           name: WpfDemoApp
           path: ${{ env.PROJECT_OUTPUT_PATH }}
 
-      - name: 'Download build Artifact'
-        uses: actions/download-artifact@v4
-        with:
-          name: WpfDemoApp
-          path: ${{ env.PROJECT_ARTIFACTS_PATH }}
-
       - name: 'Upload Release Assets'
         uses: softprops/action-gh-release@v1
         with:
-          files: WpfDemoApp.zip
+          name: WpfDemoApp
+          files: ${{ env.PROJECT_OUTPUT_PATH }}
 
           
 
