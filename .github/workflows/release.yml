@@ -10,6 +10,7 @@ on:
 env:
   PROJECT_PATH: WpfDemoApp\WpfDemoApp.csproj
   PROJECT_OUTPUT_PATH: ${{ github.workspace }}\output
+  PROJECT_ARTIFACTS_PATH: ${{ github.workspace }}\artifacts
 
 jobs:
   build:
@@ -39,13 +40,19 @@ jobs:
       - name: 'Upload Build Artifact'
         uses: actions/upload-artifact@v4
         with:
-          name: Wpf
+          name: WpfDemoApp
           path: ${{ env.PROJECT_OUTPUT_PATH }}
+
+      - name: 'Download build Artifact'
+        uses: actions/download-artifact@v4
+        with:
+          name: WpfDemoApp
+          path: ${{ env.PROJECT_ARTIFACTS_PATH }}
 
       - name: 'Upload Release Assets'
         uses: softprops/action-gh-release@v1
         with:
-          files: 'Wpf.zip'
+          files: WpfDemoApp.zip
 
           
 
