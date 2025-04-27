@@ -36,4 +36,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: my-artifact
-          path: ${{ env.PROJECT_PATH }}
+          path: ${{ env.PROJECT_RELEASE_PATH }}
+
+      - name: Display structure of downloaded files
+        run: ls -R ${{ env.PROJECT_RELEASE_PATH }}
