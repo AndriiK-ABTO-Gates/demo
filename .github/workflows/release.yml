@@ -2,15 +2,12 @@ name: "Build in Release"
 
 on:
   push:
-    tags:
-      - 'v*'
     branches:
       - main
       - staging
 env:
   PROJECT_PATH: WpfDemoApp\WpfDemoApp.csproj
   PROJECT_OUTPUT_PATH: ${{ github.workspace }}\output
-  PROJECT_ARTIFACTS_PATH: ${{ github.workspace }}\artifacts
 
 jobs:
   build:
@@ -34,7 +31,7 @@ jobs:
       - name: 'Build project'
         run: dotnet publish ${{ env.PROJECT_PATH }} --no-restore --configuration Release --output ${{ env.PROJECT_OUTPUT_PATH }} 
 
-      - name: Display structure of downloaded files
+      - name: Display structure of outpu files
         run: ls -R ${{ env.PROJECT_OUTPUT_PATH }}
         
       - name: 'Upload Build Artifact'
@@ -42,12 +39,6 @@ jobs:
         with:
           name: WpfDemoApp
           path: ${{ env.PROJECT_OUTPUT_PATH }}
-
-      - name: 'Upload Release Assets'
-        uses: softprops/action-gh-release@v1
-        with:
-          name: WpfDemoApp
-          files: ${{ env.PROJECT_OUTPUT_PATH }}\*.*
 
           
 
