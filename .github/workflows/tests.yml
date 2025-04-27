@@ -1,0 +1,34 @@
+name: "Unit Tests"
+
+on:
+  pull_request:
+    branches:
+    - main
+    - staging
+    - develop
+
+env:
+  PROJECT_PATH: 'WpfDemoApp.Test/WpfDemoApp.Test.csproj'
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
+
+jobs:
+  WpfDemoAppTest:
+    name: 'Check WpfDemoApp.Test'
+    runs-on: 'windows-latest'
+    steps:
+    - name: 'Checkout'
+      uses: actions/checkout@v2
+
+    - name: 'Install dotnet'
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: 'Restore workload'
+      run: dotnet workload restore ${{ env.PROJECT_PATH }}
+
+    - name: 'Restore packages'
+      run: dotnet restore ${{ env.PROJECT_PATH }}
+
+    - name: 'Runt tests'
+      run: dotnet test ${{ env.PROJECT_PATH }} --no-restore --verbosity normal
