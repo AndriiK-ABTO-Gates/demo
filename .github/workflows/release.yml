@@ -35,5 +35,4 @@ jobs:
       - name: 'Upload Build Artifact'
         uses: actions/download-artifact@v4
         with:
-          name: Application_Artifact
           path: ${{ env.PROJECT_PATH }}
