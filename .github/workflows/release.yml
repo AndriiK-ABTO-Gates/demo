@@ -6,9 +6,8 @@ on:
       - main
       - staging
 env:
-  PROJECT_PATH: 'WpfDemoApp\WpfDemoApp.csproj'
-  PROJECT_RELEASE_PATH: 'D:\a\demo\demo\WpfDemoApp\bin\Release\net9.0-windows\publish'
-  OUTPUT_DIRECTORY: ${{ github.workspace }}\output
+  PROJECT_PATH: WpfDemoApp/WpfDemoApp.csproj
+  PROJECT_RELEASE_PATH: ${{ github.workspace }}/WpfDemoApp/bin/Release/net9.0-windows/publish
 
 jobs:
   build:
