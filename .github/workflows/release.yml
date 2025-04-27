@@ -1,7 +1,7 @@
 name: "Run Unit tests"
 
 on:
-  push:
+  pull_request:
     branches:
     - main
     - staging
@@ -12,7 +12,7 @@ env:
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
 
 jobs:
-  deploy:
+  WpfDemoApp_Test:
     name: 'Run Tests'
     runs-on: 'windows-latest'
     steps:
