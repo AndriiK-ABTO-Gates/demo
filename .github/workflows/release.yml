@@ -6,7 +6,8 @@ on:
       - main
       - staging
 env:
-  PROJECT_PATH: 'WpfDemoApp/WpfDemoApp.sln'
+  PROJECT_PATH: 'WpfDemoApp/WpfDemoApp.csproj'
+  PROJECT_RELEASE_PATH: 'WpfDemoApp/bin/Release/'
   OUTPUT_DIRECTORY: ${{ github.workspace }}\output
 
 jobs:
@@ -29,4 +30,10 @@ jobs:
         run: dotnet restore ${{ env.PROJECT_PATH }}
 
       - name: 'Build project'
-        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release --output ${{ env.OUTPUT_DIRECTORY }}
+        run: dotnet publish ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+
+      - name: 'Upload Build Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: Application_Artifact
+          path: ${{ env.PROJECT_PATH }}
