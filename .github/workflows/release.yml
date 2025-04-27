@@ -2,6 +2,8 @@ name: "Build in Release"
 
 on:
   push:
+    tags:
+      - 'v*'
     branches:
       - main
       - staging
