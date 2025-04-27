@@ -33,7 +33,7 @@ jobs:
         run: dotnet publish ${{ env.PROJECT_PATH }} --no-restore --configuration Release
 
       - name: 'Upload Build Artifact'
-        uses: actions/upload-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: Application_Artifact
           path: ${{ env.PROJECT_PATH }}
