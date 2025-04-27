@@ -7,7 +7,7 @@ on:
       - staging
 env:
   PROJECT_PATH: WpfDemoApp\WpfDemoApp.csproj
-  PROJECT_RELEASE_PATH: ${{ github.workspace }}\WpfDemoApp\bin\Release\net9.0-windows\publish
+  PROJECT_OUTPUT_PATH: ${{ github.workspace }}\output
 
 jobs:
   build:
@@ -29,16 +29,15 @@ jobs:
         run: dotnet restore ${{ env.PROJECT_PATH }}
 
       - name: 'Build project'
-        run: dotnet publish ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+        run: dotnet publish ${{ env.PROJECT_PATH }} --no-restore --configuration Release --output ${{ env.PROJECT_OUTPUT_PATH }} 
 
       - name: Display structure of downloaded files
-        run: ls -R ${{ env.PROJECT_RELEASE_PATH }}
+        run: ls -R ${{ env.PROJECT_OUTPUT_PATH }}
         
       - name: 'Upload Build Artifact'
         uses: actions/download-artifact@v4
         with:
           name: Wpf
-          include-hidden-files: true
-          path: ${{ env.PROJECT_RELEASE_PATH }}\*
+          path: ${{ env.PROJECT_OUTPUT_PATH }}
 
      
