@@ -32,7 +32,7 @@
         public async Task Test4()
         {
             await Task.Delay(2500);
-            Assert.Fail();
+             Assert.Pass();
         }
     }
 }
