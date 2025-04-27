@@ -35,7 +35,7 @@ jobs:
         run: ls -R ${{ env.PROJECT_OUTPUT_PATH }}
         
       - name: 'Upload Build Artifact'
-        uses: actions/download-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: Wpf
           path: ${{ env.PROJECT_OUTPUT_PATH }}
