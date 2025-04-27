@@ -1,34 +1,32 @@
-name: "Unit Tests Action"
+name: "Build in Release"
 
 on:
-  pull_request:
+  push:
     branches:
-    - main
-    - staging
-    - develop
-
+      - main
+      - staging
 env:
-  PROJECT_PATH: 'WpfDemoApp.Test/WpfDemoApp.Test.csproj'
-  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
+  PROJECT_PATH: 'WpfDemoApp/WpfDemoApp.sln'
+  OUTPUT_DIRECTORY: ${{ github.workspace }}\output
 
 jobs:
-  WpfDemoAppTest:
-    name: 'Check WpfDemoApp.Test'
+  build:
+    name: 'Build WpfDemoApp'
     runs-on: 'windows-latest'
     steps:
-    - name: 'Checkout'
-      uses: actions/checkout@v2
+      - name: 'Checkout'
+        uses: actions/checkout@v2
 
-    - name: 'Install dotnet'
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '9.0.x'
+      - name: 'Install dotnet'
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '9.0.x'
 
-    - name: 'Restore workload'
-      run: dotnet workload restore ${{ env.PROJECT_PATH }}
+      - name: 'Restore workload'
+        run: dotnet workload restore ${{ env.PROJECT_PATH }}
 
-    - name: 'Restore packages'
-      run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name: 'Restore packages'
+        run: dotnet restore ${{ env.PROJECT_PATH }}
 
-    - name: 'Build project'
-      run: dotnet test ${{ env.PROJECT_PATH }} --no-restore --verbosity normal
+      - name: 'Build project'
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release --output ${{ env.OUTPUT_DIRECTORY }}
