@@ -6,8 +6,8 @@ on:
       - main
       - staging
 env:
-  PROJECT_PATH: WpfDemoApp/WpfDemoApp.csproj
-  PROJECT_RELEASE_PATH: ${{ github.workspace }}/WpfDemoApp/bin/Release/net9.0-windows/publish
+  PROJECT_PATH: WpfDemoApp\WpfDemoApp.csproj
+  PROJECT_RELEASE_PATH: ${{ github.workspace }}\WpfDemoApp\bin\Release\net9.0-windows\publish
 
 jobs:
   build:
@@ -37,7 +37,8 @@ jobs:
       - name: 'Upload Build Artifact'
         uses: actions/download-artifact@v4
         with:
-          name: my-artifact
-          path: ${{ env.PROJECT_RELEASE_PATH }}
+          name: Wpf
+          include-hidden-files: true
+          path: ${{ env.PROJECT_RELEASE_PATH }}\*
 
      
